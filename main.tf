@@ -3,7 +3,7 @@ resource "aws_vpc" "my_vpc" {
   cidr_block = "10.0.0.0/16"
   
   tags= {
-    Name = "github-repo-eks2"
+    Name = "github-repo-vpc"
   }
 }
 
@@ -39,10 +39,10 @@ resource "aws_internet_gateway" "my_igw" {
 module "eks_cluster" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name           = "cluster-github-eks"
+  cluster_name           = "eks-cluster1-actions"
   cluster_version        = "1.26"
   vpc_id                 = aws_vpc.my_vpc.id
-  subnet_ids             = [aws_subnet.public_1.id, aws_subnet.private_2.id]
+  subnet_ids             = [aws_subnet.public_1.id, aws_subnet.public_2.id]
  
 }
 
@@ -55,9 +55,9 @@ resource "aws_subnet" "public_1" {
     Name = "github-actions-sb1"
   }
 }
-resource "aws_subnet" "private_2" {
+resource "aws_subnet" "public_2" {
   vpc_id                  = aws_vpc.my_vpc.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = "10.0.2.0/24"
   availability_zone       = "ap-south-1b"
   
   tags = {
