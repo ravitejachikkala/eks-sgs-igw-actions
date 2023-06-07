@@ -43,10 +43,7 @@ module "eks_cluster" {
   cluster_version        = "1.23"
   vpc_id                 = aws_vpc.my_vpc.id
   subnet_ids             = [aws_subnet.my_subnet.id]
-  create_eks_workers     = false
-  map_roles              = []
-  worker_group_launch_template_config = []
-
+ 
   tags = {
     Environment = "development"
   }
