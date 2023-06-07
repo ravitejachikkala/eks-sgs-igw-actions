@@ -30,6 +30,10 @@ resource "aws_security_group" "my_sg" {
 
 resource "aws_internet_gateway" "my_igw" {
   vpc_id = aws_vpc.my_vpc.id
+  
+  tags = {
+    Name = "github-actions-ig"
+  }
 }
 
 module "eks_cluster" {
@@ -51,5 +55,9 @@ module "eks_cluster" {
 resource "aws_subnet" "my_subnet" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = "ap-south-1a"
+  
+  tags = {
+    Name = "github-actions-sb1"
+  }
 }
