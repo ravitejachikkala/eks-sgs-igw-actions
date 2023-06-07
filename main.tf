@@ -3,12 +3,12 @@ resource "aws_vpc" "my_vpc" {
   cidr_block = "10.0.0.0/16"
   
   tags= {
-    Name = "github-eks"
+    Name = "github-repo-eks1"
   }
 }
 
 resource "aws_security_group" "my_sg" {
-  name        = "my-github-group"
+  name        = "github-group"
   description = "My Security Group"
   vpc_id      = aws_vpc.my_vpc.id
 
@@ -39,22 +39,28 @@ resource "aws_internet_gateway" "my_igw" {
 module "eks_cluster" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name           = "github-eks-cluster-1"
-  cluster_version        = "1.23"
+  cluster_name           = "github-repo-cluster-3"
+  cluster_version        = "1.25"
   vpc_id                 = aws_vpc.my_vpc.id
   subnet_ids             = [aws_subnet.my_subnet.id]
  
-  tags = {
-    Environment = "development"
-  }
 }
 
-resource "aws_subnet" "my_subnet" {
+resource "aws_subnet" "public_1" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "ap-south-1a, ap-south-1b"
+  availability_zone       = "ap-south-1a"
   
   tags = {
     Name = "github-actions-sb1"
+  }
+}
+resource "aws_subnet" "public_2" {
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "ap-south-1b"
+  
+  tags = {
+    Name = "github-actions-sb2"
   }
 }
