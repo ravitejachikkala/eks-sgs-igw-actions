@@ -42,7 +42,7 @@ module "eks_cluster" {
   cluster_name           = "github-repo-cluster-3"
   cluster_version        = "1.25"
   vpc_id                 = aws_vpc.my_vpc.id
-  subnet_ids             = [aws_subnet.my_subnet.id]
+  subnet_ids             = [aws_subnet.public_1.id, aws_subnet.public_2.id]
  
 }
 
