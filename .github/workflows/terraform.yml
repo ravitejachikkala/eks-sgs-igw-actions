@@ -1,4 +1,4 @@
-name: Create EKS,vpc,sg,igw,sb with github-actions
+name: Create EKS,vpc,sg,igw,2sbs with github-actions
 
 on:
   push:
